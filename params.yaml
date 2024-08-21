@@ -6,23 +6,19 @@ data:
     X_test: 'data/splitted/X_test.csv'
     y_train: 'data/splitted/y_train.csv'
     y_test: 'data/splitted/y_test.csv'
-    X_train_selected: 'data/splitted/X_train_selected.csv'
-    X_test_selected: 'data/splitted/X_test_selected.csv'
-  selected_features:
-    file: 'selected_features/features.txt'
-    X_train: 'data/splitted/X_train_selected.csv'
-    X_test: 'data/splitted/X_test_selected.csv'
   transformed_data:
     X_train_transformed: 'data/transformed/X_train_transformed.csv'
     X_test_transformed: 'data/transformed/X_test_transformed.csv'
     y_train_transformed: 'data/transformed/y_train_transformed.csv'
     y_test_transformed: 'data/transformed/y_test_transformed.csv'
-
+  selected_features:
+    file: 'selected_features/features.txt'
+    X_train: 'data/selected/X_train_selected.csv'
+    X_test: 'data/selected/X_test_selected.csv'
 model:
   local_model_path: 'models/best_model.pkl'
-  metrics_path: 'metrics/model_metrics.txt'
   label_encoders_path: 'models/label_encoders.pkl'
-
+  metrics_path: 'metrics/model_metrics.txt'
 processing:
   split_data:
     test_size: 0.2

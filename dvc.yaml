@@ -1,20 +1,57 @@
 stages:
-  prepare-data:
-    cmd: python src/components/prepare-data.py
+  prepare_data:
+    cmd: python src/components/prepare_data.py
     deps:
-    - data/external_data.csv
+    - data/external/external_data.csv
+    - src/components/prepare_data.py
     - params.yaml
-    - src/components/prepare-data.py
     outs:
     - data/prepared/prepared_data.csv
-  split-data:
-    cmd: python split_data.py
+  split_data:
+    cmd: python src/components/split_data.py
     deps:
     - data/prepared/prepared_data.csv
+    - src/components/split_data.py
     - params.yaml
-    - split_data.py
     outs:
     - data/splitted/X_test.csv
     - data/splitted/X_train.csv
     - data/splitted/y_test.csv
     - data/splitted/y_train.csv
+  transform_data:
+    cmd: python src/components/transform_data.py
+    deps:
+    - data/splitted/X_test.csv
+    - data/splitted/X_train.csv
+    - data/splitted/y_test.csv
+    - data/splitted/y_train.csv
+    - src/components/transform_data.py
+    - params.yaml
+    outs:
+    - data/transformed/X_test_transformed.csv
+    - data/transformed/X_train_transformed.csv
+    - data/transformed/y_test_transformed.csv
+    - data/transformed/y_train_transformed.csv
+  select_features:
+    cmd: python src/components/features.py
+    deps:
+    - selected_features/features.txt
+    - data/transformed/X_test_transformed.csv
+    - data/transformed/X_train_transformed.csv
+    - src/components/features.py
+    - params.yaml
+    outs:
+    - data/selected/X_test_selected.csv
+    - data/selected/X_train_selected.csv
+  train_model:
+    cmd: python src/components/train_and_log_model.py
+    deps:
+    - data/selected/X_test_selected.csv
+    - data/selected/X_train_selected.csv
+    - data/transformed/y_test_transformed.csv
+    - data/transformed/y_train_transformed.csv
+    - src/components/train_and_log_model.py
+    - params.yaml
+    outs:
+    - metrics/model_metrics.txt
+    - models/best_model.pkl
