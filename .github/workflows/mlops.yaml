@@ -30,8 +30,6 @@ jobs:
           echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" > /tmp/google-service-account.json
           dvc remote remove myremote || true  # Supprimer le remote s'il existe déjà
           dvc remote add -d myremote gdrive://$DVC_REMOTE_URL
-          dvc remote modify myremote gdrive_client_id $CLIENT_ID
-          dvc remote modify myremote gdrive_client_secret $SECRET_ID
           dvc remote modify myremote gdrive_service_account /tmp/google-service-account.json
 
       - name: Pull DVC data
