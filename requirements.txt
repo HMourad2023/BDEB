@@ -10,4 +10,3 @@ setuptools
 klib
 mlxtend
 joblib
-pickle
