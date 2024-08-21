@@ -25,13 +25,6 @@ jobs:
           pip install dvc[gdrive]  # Installer DVC avec support Google Drive
           pip install -r requirements.txt
 
-      - name: Configure DVC
-        run: |
-          dvc remote remove myremote || true  # Supprimer le remote s'il existe déjà
-          dvc remote add -d myremote gdrive://$DVC_REMOTE_URL
-          dvc remote modify myremote gdrive_client_id $CLIENT_ID
-          dvc remote modify myremote gdrive_client_secret $SECRET_ID
-
       - name: Pull DVC data
         run: dvc pull
 
