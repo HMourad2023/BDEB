@@ -1,0 +1,20 @@
+stages:
+  prepare-data:
+    cmd: python src/components/prepare-data.py
+    deps:
+    - data/external_data.csv
+    - params.yaml
+    - src/components/prepare-data.py
+    outs:
+    - data/prepared/prepared_data.csv
+  split-data:
+    cmd: python split_data.py
+    deps:
+    - data/prepared/prepared_data.csv
+    - params.yaml
+    - split_data.py
+    outs:
+    - data/splitted/X_test.csv
+    - data/splitted/X_train.csv
+    - data/splitted/y_test.csv
+    - data/splitted/y_train.csv
