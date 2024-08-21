@@ -27,8 +27,9 @@ jobs:
 
       - name: Configure DVC
         run: |
+          dvc remote remove myremote || true  # Supprimer le remote s'il existe déjà
           dvc remote add -d myremote gdrive://$DVC_REMOTE_URL
-          dvc remote modify --force myremote gdrive_client_id $CLIENT_ID
+          dvc remote modify myremote gdrive_client_id $CLIENT_ID
           dvc remote modify myremote gdrive_client_secret $SECRET_ID
 
       - name: Pull DVC data
