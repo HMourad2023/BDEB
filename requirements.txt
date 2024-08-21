@@ -1,0 +1,13 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+mlflow
+dvc
+dvc[gdrive]
+setuptools
+klib
+mlxtend
+joblib
+pickle

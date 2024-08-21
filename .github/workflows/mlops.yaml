@@ -1,0 +1,40 @@
+name: MLOps Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  dvc-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install dvc[gdrive]  # Installer DVC avec support Google Drive
+          pip install -r requirements.txt
+
+      - name: Configure DVC
+        run: |
+          dvc remote add -d myremote gdrive://$DVC_REMOTE_URL
+          dvc remote modify myremote gdrive_client_id $CLIENT_ID
+          dvc remote modify myremote gdrive_client_secret $SECRET_ID
+
+      - name: Pull DVC data
+        run: dvc pull
+
+      - name: Reproduce DVC pipeline
+        run: dvc repro
+
+      - name: Push DVC data
+        run: dvc push
