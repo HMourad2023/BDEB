@@ -40,7 +40,7 @@ jobs:
 
       - name: Configure DVC remote for Google Drive
         run: |
-          dvc remote modify myremote gdrive_service_account_json_file_path gdrive_service_account.json  # Configuration du remote DVC
+          dvc remote modify myremote gdrive_service_account_json_file_path ../gdrive_service_account.json  # Configuration du remote DVC
 
       - name: Pull DVC data
         run: |
