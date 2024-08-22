@@ -352,6 +352,8 @@ jobs:
 <h2 style="color:blue;">Conclusion :</h2>
 
 
-Cette solution propose une approche intégrée, utilisant les pratiques modernes de MLOps pour automatiser et optimiser les opérations aériennes, réduisant ainsi les coûts et augmentant les revenus des compagnies aériennes.
+Au cours de ce projet, nous avons appris à automatiser le workflow complet d'un projet de machine learning en utilisant des outils MLOps, et à fournir une application de prédiction fonctionnelle. 
+Cette application reste à améliorer par l'intégration d'autres outils et la résolution des étapes qui ont rencontré des difficultés.
+
 
 
