@@ -7,22 +7,21 @@ on:
 
 jobs:
   run:
-    runs-on: ubuntu-20.04  # Utilisation de l'image Ubuntu 20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Update system libraries
+      - name: Update and install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install openssl -y
-          sudo apt-get install --reinstall libssl-dev
+          sudo apt-get install -y openssl libssl-dev
 
-      - name: Upgrade DVC and install dependencies
+      - name: Upgrade pip and install DVC with Google Drive support
         run: |
           python -m pip install --upgrade pip
-          pip install --upgrade dvc[dvc-gdrive] mlflow -r requirements.txt
+          pip install --upgrade dvc[dvc-gdrive]
 
       - name: Create Google Drive credentials file
         run: |
@@ -30,15 +29,15 @@ jobs:
 
       - name: Configure DVC remote for Google Drive
         run: |
-          dvc remote modify myremote gdrive_service_account_json_file_path gdrive_service_account.json
+          dvc remote modify -d myremote gdrive_service_account_json_file_path gdrive_service_account.json
 
       - name: Pull DVC data
         run: |
-          dvc fetch
-          dvc repro
+          dvc pull  # Fetch and pull data from Google Drive
 
       - name: Set up MLflow
         run: |
+          pip install mlflow
           mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlruns &
 
       - name: Train and log models
@@ -53,4 +52,4 @@ jobs:
 
       - name: Clean up
         run: |
-          rm gdrive_service_account.json  # Nettoyage du fichier temporaire
+          rm gdrive_service_account.json
