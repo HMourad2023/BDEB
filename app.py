@@ -4,7 +4,7 @@ import numpy as np
 import joblib
 import math
 import base64
-from src.pipeline.prediction_pipeline import predict, preprocess_data
+from src.pipeline.prediction_pipeline import load_model,load_preprocessor,predict
 
 # Function to read and display an image as background
 def add_background(image_file):
@@ -37,8 +37,7 @@ if page == 'Prédiction':
         
         with col1:
             distance = st.number_input('DISTANCE')
-            region = st.text_input('REGION')
-            carrier = st.text_input('CARRIER', '')
+            unique_carrier = st.text_input('UNIQUE_CARRIER', '')
             origin = st.text_input('ORIGIN', '')
             origin_wac = st.number_input('ORIGIN_WAC')
         
@@ -59,8 +58,7 @@ if page == 'Prédiction':
     if submit_button:
         data = {
             'DISTANCE': [distance],
-            'REGION': [region],
-            'CARRIER': [carrier],
+            'UNIQUE_CARRIER': [unique_carrier],
             'ORIGIN': [origin],
             'ORIGIN_WAC': [origin_wac],
             'DEST': [dest],
@@ -70,16 +68,20 @@ if page == 'Prédiction':
             'CLASS': [class_]
         }
 
-        model_path = "models/best_model.pkl"
-        label_encoder_path = "models/label_encoder.pkl"
-        log_transformer_path = "models/log_transformer.pkl"
+        # Chargement des encodeurs
+        encoders = load_preprocessor('models/label_encoders.pkl')
 
-        model = joblib.load(model_path)
+        # Charger le modèle
+        model = load_model('models/best_model.pkl')
         
         df_new = pd.DataFrame(data)
 
+        for col in df_new.columns:
+            if col in encoders:
+                df_new[col] = encoders[col].transform(df_new[col])
+
         # Faire des prédictions
-        predictions = predict(df_new, model, label_encoder_path, log_transformer_path)
+        predictions = predict(df_new, model)
         prediction_original = np.exp(predictions)
 
         passengers = prediction_original[0][0]

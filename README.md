@@ -14,9 +14,16 @@ Les compagnies aériennes doivent relever des défis pour optimiser leurs opéra
 
 Nous proposons un modèle d'apprentissage automatique pour prédire le nombre de passagers, ainsi que les quantités de fret et de courrier. Cette solution permettra d’optimiser la gestion des ressources humaines et matérielles des compagnies aériennes en intégrant ces prévisions dans leur système de planification.
 
+### Deploiement Local : streamlit run app.py
+
+
 <p align="center">
   <img src="images/image-9.png" alt="alt text" width="800"/>
 </p>
+
+
+### Deploiement Cloud : streamlit run app.py
+
 
 <h2 style="color:blue;">Planification des activités :</h2>
 
@@ -356,4 +363,6 @@ Au cours de ce projet, nous avons appris à automatiser le workflow complet d'un
 Cette application reste à améliorer par l'intégration d'autres outils et la résolution des étapes qui ont rencontré des difficultés.
 
 
+![alt text](image.png)
 
+![alt text](image-1.png)

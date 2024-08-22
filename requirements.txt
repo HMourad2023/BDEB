@@ -12,3 +12,4 @@ mlxtend
 joblib
 cryptography
 pyOpenSSL
+streamlit
