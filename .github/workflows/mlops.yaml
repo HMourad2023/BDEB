@@ -7,7 +7,7 @@ on:
 
 jobs:
   run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04  # Utilisation de l'image Ubuntu 20.04
 
     steps:
       - name: Checkout code
@@ -16,7 +16,8 @@ jobs:
       - name: Update system libraries
         run: |
           sudo apt-get update
-          sudo apt-get install openssl=1.1.1-1ubuntu2.1~18.04.20
+          sudo apt-get install openssl -y  # Installation de la dernière version d'OpenSSL disponible
+          sudo apt-get install --reinstall libssl-dev
 
       - name: Upgrade DVC and install dependencies
         run: |
