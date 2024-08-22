@@ -22,7 +22,11 @@ Nous proposons un modèle d'apprentissage automatique pour prédire le nombre de
 </p>
 
 
-### Deploiement Cloud : streamlit run app.py
+### Deploiement Cloud : https://airline-projet-prediction.streamlit.app/
+
+<p align="center">
+  <img src="images/image-a.png" alt="alt text" width="800"/>
+</p>
 
 
 <h2 style="color:blue;">Planification des activités :</h2>
@@ -350,11 +354,28 @@ jobs:
           streamlit deploy
 ```
 
+
+
+<h2 style="color:blue;">Deploiement Stramlit Cloud Community :</h2>
+
+
+
+<p align="center">
+  <img src="images/image-b.png" alt="alt text" width="800"/>
+</p>
+
+
+
+<p align="center">
+  <img src="images/image-c.png" alt="alt text" width="800"/>
+</p>
+
 <h2 style="color:blue;">Démo de l'Application:</h2>
 
 <p align="center">
   <img src="images/image-9.png" alt="alt text" width="800"/>
 </p>
+
 
 <h2 style="color:blue;">Conclusion :</h2>
 
@@ -362,7 +383,3 @@ jobs:
 Au cours de ce projet, nous avons appris à automatiser le workflow complet d'un projet de machine learning en utilisant des outils MLOps, et à fournir une application de prédiction fonctionnelle. 
 Cette application reste à améliorer par l'intégration d'autres outils et la résolution des étapes qui ont rencontré des difficultés.
 
-
-![alt text](image.png)
-
-![alt text](image-1.png)
