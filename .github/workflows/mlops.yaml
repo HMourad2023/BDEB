@@ -16,7 +16,7 @@ jobs:
       - name: Update system libraries
         run: |
           sudo apt-get update
-          sudo apt-get install openssl -y  # Installation de la dernière version d'OpenSSL disponible
+          sudo apt-get install openssl -y
           sudo apt-get install --reinstall libssl-dev
 
       - name: Upgrade DVC and install dependencies
@@ -26,18 +26,20 @@ jobs:
 
       - name: Create DVC Google Drive configuration file
         run: |
-          echo "{
-            \"auth_uri\": \"${{ secrets.AUTH_URI }}\",
-            \"auth_provider_x509_cert_url\": \"${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}\",
-            \"client_id\": \"${{ secrets.CLIENT_ID }}\",
-            \"client_secret\": \"${{ secrets.CLIENT_SECRET }}\",
-            \"project_id\": \"${{ secrets.PROJECT_ID }}\",
-            \"token_uri\": \"${{ secrets.TOKEN_URI }}\"
-          }" > gdrive_service_account.json
+          echo '{
+            "web": {
+              "client_id": "${{ secrets.CLIENT_ID }}",
+              "project_id": "${{ secrets.PROJECT_ID }}",
+              "auth_uri": "${{ secrets.AUTH_URI }}",
+              "token_uri": "${{ secrets.TOKEN_URI }}",
+              "auth_provider_x509_cert_url": "${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}",
+              "client_secret": "${{ secrets.CLIENT_SECRET }}"
+            }
+          }' > gdrive_service_account.json
 
       - name: Configure DVC remote for Google Drive
         run: |
-          dvc remote modify myremote gdrive_service_account_json_file_path ../gdrive_service_account.json
+          dvc remote modify myremote gdrive_service_account_json_file_path gdrive_service_account.json
 
       - name: Pull DVC data
         run: |
@@ -57,3 +59,7 @@ jobs:
           MLFLOW_TRACKING_URI: "http://127.0.0.1:5000"
         run: |
           python src/register_best_model.py
+
+      - name: Clean up
+        run: |
+          rm gdrive_service_account.json  # Nettoyage du fichier temporaire
