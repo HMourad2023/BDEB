@@ -24,18 +24,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade dvc[dvc-gdrive] mlflow -r requirements.txt
 
-      - name: Create DVC Google Drive configuration file
+      - name: Create Google Drive credentials file
         run: |
-          echo '{
-            "web": {
-              "client_id": "${{ secrets.CLIENT_ID }}",
-              "project_id": "${{ secrets.PROJECT_ID }}",
-              "auth_uri": "${{ secrets.AUTH_URI }}",
-              "token_uri": "${{ secrets.TOKEN_URI }}",
-              "auth_provider_x509_cert_url": "${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}",
-              "client_secret": "${{ secrets.CLIENT_SECRET }}"
-            }
-          }' > gdrive_service_account.json
+          echo "${{ secrets.GDRIVE_CREDENTIALS_JSON }}" > gdrive_service_account.json
 
       - name: Configure DVC remote for Google Drive
         run: |
