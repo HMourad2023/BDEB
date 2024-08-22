@@ -44,11 +44,25 @@ jobs:
 
       - name: Pull DVC data
         run: |
-          dvc fetch  # Extraction des données depuis Google Drive
+          dvc fetch data/external/external_data.csv  # Extraction des données depuis Google Drive
 
-      - name: Run DVC pipeline
-        run: |
-          dvc repro  # Exécution du pipeline DVC
+      - name: Prepare data
+        run: dvc repro prepare_data
+        
+      - name: Split data
+        run: dvc repro split_data
+        
+      - name: Transform data
+        run: dvc repro transform_data
+        
+      - name: Select features
+        run: dvc repro select_features
+        
+      - name: Train and log model
+        run: dvc repro train_model
+    
+      - name: Push DVC data to remote
+        run: dvc push
 
       - name: Set up MLflow
         run: |

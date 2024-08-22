@@ -10,3 +10,5 @@ setuptools
 klib
 mlxtend
 joblib
+cryptography
+pyOpenSSL
